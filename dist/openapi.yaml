@@ -109,6 +109,137 @@ paths:
           description: user is not authorized
       security:
       - cookieAuth: []
+
+
+####################################
+    /users/myRecipes:
+    get:
+      tags:
+      - Users
+      summary: Return the recipes that were owned by user
+      description: Get an array of recipes that were created by a specific user
+      responses:
+        "200":
+          description: data about the user's myRecipes (private) returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipePreview'
+        "401":
+          description: user is not authorized
+      security:
+      - cookieAuth: []
+    post:
+      tags:
+      - Users
+      summary: save recipe in myRecipe (private) list of a user
+      description: save recipe in the myRecupe (private) list of a user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reciepeId:
+                  type: string
+                  description: reciepe's id which the user saved
+                  example: 716429
+      responses:
+        "200":
+          description: The Recipe successfully added to myRecipes
+        "401":
+          description: user is not authorized
+      security:
+      - cookieAuth: []
+###############################################
+    /users/family:
+    get:
+      tags:
+      - Users
+      summary: Return the recipes that were save as family recipe by user
+      description: Get an array of recipes that were saved as family by a specific user
+      responses:
+        "200":
+          description: data about the user's family recipes returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipePreview'
+        "401":
+          description: user is not authorized
+      security:
+      - cookieAuth: []
+    post:
+      tags:
+      - Users
+      summary: save recipe in the family list of a user
+      description: save recipe in the family list of a user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reciepeId:
+                  type: string
+                  description: reciepe's id which the user saved as family recipe
+                  example: 716429
+      responses:
+        "200":
+          description: The Recipe successfully added to family list
+        "401":
+          description: user is not authorized
+      security:
+      - cookieAuth: []
+#####################################################
+    /users/watchedRecipes:
+    get:
+      tags:
+      - Users
+      summary: Return the recipes that were owned by user
+      description: Get an array of recipes that were created by a specific user
+      responses:
+        "200":
+          description: data about the user's myRecipes (private) returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipePreview'
+        "400":
+          description: Bad Request
+      security:
+      - cookieAuth: []
+    post:
+      tags:
+      - Users
+      summary: save recipe in the watched list of a user
+      description: save recipe in the watched list of a user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reciepeId:
+                  type: string
+                  description: reciepe's id which the user saved
+                  example: 716429
+      responses:
+        "200":
+          description: The Recipe successfully added to watched list
+        "400":
+          description: Bad Request
+      security:
+      - cookieAuth: []
+#########################################################
+
+
   /recipes/{recipeId}:
     get:
       tags:
