@@ -23,7 +23,6 @@ async function getRecipeInformation(recipe_id) {
 
 async function getRecipeDetails(recipe_id) {
     let recipe_info = await getRecipeInformation(recipe_id);
-    console.log("after info")
     let { id, title, readyInMinutes, image, aggregateLikes, vegan, vegetarian, glutenFree } = recipe_info.data;
 
     return {
@@ -44,12 +43,9 @@ async function getRecipeDetails(recipe_id) {
 ////////////////////////////////////
 // Searching for recipes with expected "number" of results
 async function search(query,number){
-    console.log(query)
     let apiurl = `${api_domain}/complexSearch${query}&apiKey=${process.env.spooncular_apiKey}`;
-    console.log(apiurl)
     const d = await axios.get(apiurl);
     let data = d.data["results"];
-    console.log(data)
     let result = [];
     for (let i = 0; i< data.length; i++){
         result.push(await getRecipeDetails(data[i].id))
@@ -98,7 +94,6 @@ async function randomRecipes(){
 async function getRecipesPreview(recipes_id_array){
     var res = [];
     for (const id of recipes_id_array){
-        console.log(id)
         let preview = await getRecipeDetails(id);
         res.push(preview);
     }

@@ -63,7 +63,7 @@ router.get("/fullinformation/:recipeId", async(req,res,next)=> {
   try{
     const recipeID = req.params.recipeId;
     const userID = req.session.user_id;
-    // await user_utils.addRecipeToWatched(userID,recipeID);
+    await user_utils.addRecipeToWatched(userID,recipeID);
     const recipe = await recipes_utils.getRecipeFullInformation(recipeID);//check
     res.send(recipe);
   }
@@ -77,7 +77,7 @@ router.get("/fullinformation/:recipeId", async(req,res,next)=> {
 /** 
  *  This path returns three random recipes
 */
-router.get("/random", async(req,res,next)=>{
+router.get("/threeRandom", async(req,res,next)=>{
   try{
     const three = await recipes_utils.randomRecipes();
     res.send(three);

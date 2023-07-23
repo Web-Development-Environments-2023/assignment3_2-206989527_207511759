@@ -8,6 +8,7 @@ const { query } = require("./MySql");
 
 // Watched
 async function getWatchedRecipes(userID){
+    console.log("121")
     const query = `select * from watchedRecipes where user_id='${userID}' `
     return await DButils.execQuery(query);
 }
@@ -41,6 +42,7 @@ async function getFavoriteRecipes(user_id){
 // }
 
 async function getMyRecipes(user_id){
+    console.log("here")
     const query = `select * from myrecipes where user_id ='${user_id}'`
     const recipes = await DButils.execQuery(query);
     var res = [];
@@ -49,12 +51,12 @@ async function getMyRecipes(user_id){
             "recipe_id":recipes[i].recipe_id,
             "image":recipes[i].image,
             "title":recipes[i].title,
-            "PreparationTime":recipes[i].PreparationTime,
+            "readyInMinutes":recipes[i].PreparationTime,
             "popularity":recipes[i].popularity,
             "vegan":Boolean(recipes[i].vegan),
             "vegetarian":Boolean(recipes[i].vegeterian),
             "glutenFree":Boolean(recipes[i].glutenFree),
-            "ingradiants":recipes[i].ingradiants,
+            "ingrediants":recipes[i].ingrediants,
             "instructions":recipes[i].instructions,
             "quantity":recipes[i].quantity
             }
@@ -62,6 +64,8 @@ async function getMyRecipes(user_id){
     }
     return res;
 }
+
+
 // check
 async function getMyRecipeFullInformation(user_id,recipe_id){
     const query = `select * from myRecipes where user_id ='${user_id}' and recipe_id ='${recipe_id}`
@@ -87,7 +91,7 @@ async function getMyRecipeFullInformation(user_id,recipe_id){
 
 async function addToMyRecipe(user_id,image,title,Preparationtime,vegan,vegetarian,gluten,ingrediants,instructions){
     // const query = `insert into myRecipes values ('0','${user_id}','${img}','${title}','${Preparationminutes}','0',${vegan},${vegetarian},${gluten},'${ingrediants}','${instructions}')`
-    const q = `insert into myrecipes (user_id,image,title,preparationTime,popularity,vegan,vegeterian,glutenfree,ingradiants,instructions,quantity) values ('${user_id}','${image}','${title}','${Preparationtime}','0','${vegan}','${vegetarian}','${gluten}','${ingrediants}','${instructions}','0')`
+    const q = `insert into myrecipes (user_id,image,title,preparationTime,popularity,vegan,vegeterian,glutenfree,ingrediants,instructions,quantity) values ('${user_id}','${image}','${title}',${Preparationtime},'0','${vegan}','${vegetarian}','${gluten}','${ingrediants}','${instructions}','10')`
     await DButils.execQuery(q);
 }
 
@@ -104,12 +108,14 @@ async function getFamilyRecipes(user_id){
     var res = [];
     for (let i = 0; i<recipes.length; i++){
         var recipe = {
-            "recipe_owner_id":recipes.recipe_owner_id,
+            "recipe_owner_id":recipes[i].recipe_owner_id,
             "image":recipes[i].image,
             "title":recipes[i].title,
-            "preparationTime":recipes[i].preparationTime,
-            "ingradiants":recipes[i].ingradiants,
+            "FamilyTime":recipes[i].family_prep_time,
+            "readyInMinutes":recipes[i].preparationTime,
+            "ingrediants":recipes[i].ingradiants,
             "instructions":recipes[i].instructions
+            
             }
         res.push(recipe);
     }
@@ -127,7 +133,7 @@ async function getFamilyRecipeFullInformation(user_id,recipe_id){
             "image":recipes[i].image,
             "title":recipes[i].title,
             "owner":recipes[i].owner,
-            "custom_time":recipes[i].custom_time,
+            "Family_time":recipes[i].custom_time,
             "readyInMinutes":recipes[i].minutes,
             "aggregate_likes":recipes.aggregate_likes,
             "vegan":Boolean(recipes[i].vegan),

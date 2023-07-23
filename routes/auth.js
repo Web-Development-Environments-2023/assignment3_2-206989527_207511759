@@ -4,7 +4,7 @@ const MySql = require("../routes/utils/MySql");
 const DButils = require("../routes/utils/DButils");
 const bcrypt = require("bcrypt");
 
-var id_count = 1;
+var id_count = 20;
 router.post("/Register", async (req, res, next) => {
   try {
     // parameters exists
@@ -63,7 +63,7 @@ router.post("/Login", async (req, res, next) => {
     // Set cookie
     req.session.user_id = user.user_id;
 
-
+    console.log("check")
     // return cookie
     res.status(200).send({ message: "login succeeded", success: true });
   } catch (error) {
