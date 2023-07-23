@@ -8,7 +8,6 @@ const { query } = require("./MySql");
 
 // Watched
 async function getWatchedRecipes(userID){
-    console.log("121")
     const query = `select * from watchedRecipes where user_id='${userID}' `
     return await DButils.execQuery(query);
 }
@@ -42,7 +41,6 @@ async function getFavoriteRecipes(user_id){
 // }
 
 async function getMyRecipes(user_id){
-    console.log("here")
     const query = `select * from myrecipes where user_id ='${user_id}'`
     const recipes = await DButils.execQuery(query);
     var res = [];

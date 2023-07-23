@@ -42,7 +42,6 @@ router.post('/favorites', async (req,res,next) => {
  */
 router.get('/favorites', async (req,res,next) => {
   try{
-    console.log("here")
 
     const user_id = req.session.user_id;
     let favorite_recipes = {};
@@ -63,7 +62,6 @@ router.get('/favorites', async (req,res,next) => {
 
 router.post('/privates', async (req,res,next) => {
   try{
-    console.log('added')
 
     // const recipe_id = req.body.recipe_id;
     const image = req.body.image;
@@ -92,7 +90,6 @@ router.get('/privates', async (req,res,next) => {
   try{
     
     const user_id = req.session.user_id;
-    console.log(user_id)
     // let myRecipes = {};
     const result = await user_utils.getToMyRecipes(user_id);
     res.status(200).send(result);
@@ -107,7 +104,6 @@ router.get('/privates/info', async (req,res,next) => {
   try{
     const recipe_id = req.body.recipe_id;
     const user_id = req.session.user_id;
-    console.log(user_id)
     // let myRecipes = {};
     const result = await user_utils.getMyRecipeFullInformation(user_id,recipe_id);
     res.status(200).send(result);
@@ -169,7 +165,6 @@ router.get('/family',async(req,res,next) =>{
 
 router.post('/watchedRecipes',async(req,res,next) =>{
   try{
-    console.log("2")
     const user_id = req.session.user_id;
     const recipe_id = req.body.recipe_id;
     await user_utils.addRecipeToWatched(user_id,recipe_id);
@@ -191,7 +186,6 @@ router.post('/watchedRecipes',async(req,res,next) =>{
 
 router.get('/watchedrecipes', async(req,res,next) =>{
   try{
-    console.log("arrived")
     const user_id = req.session.user_id;
     const watched_lst = await user_utils.getWatchedRecipes(user_id);
     const idList = [];

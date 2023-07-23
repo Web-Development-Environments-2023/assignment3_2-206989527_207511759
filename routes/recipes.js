@@ -38,7 +38,6 @@ router.get("/search/", async(req,res,next)=>{
     if (req.query.cuisine != undefined){
       query = query + "&cuisine=" + req.query.cuisine;
     }
-    console.log(query);
     if (req.query.diet != undefined){
       query = query + "&diet=" + req.query.diet;
     }

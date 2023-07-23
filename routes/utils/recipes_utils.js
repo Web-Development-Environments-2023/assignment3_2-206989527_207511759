@@ -50,7 +50,6 @@ async function search(query,number){
     for (let i = 0; i< data.length; i++){
         result.push(await getRecipeDetails(data[i].id))
     }
-    console.log(result.length)
     result = result.slice(0,number);
     return result;
 }
